@@ -5,23 +5,43 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ma Galerie</title>
 <style>
-body{margin:0;background:#111;color:#eee;font-family:Arial,sans-serif}
-header{padding:20px;text-align:center;position:sticky;top:0;background:#181818}
-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-nav a{color:#fff;text-decoration:none;background:#292929;padding:10px 16px;border-radius:10px}
-main{max-width:1100px;margin:auto;padding:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
-.card{background:#1c1c1c;border-radius:12px;padding:12px}
-.card img{width:100%;height:180px;object-fit:cover;border-radius:8px}
-a{color:#8ec5ff}
+*{box-sizing:border-box}body{margin:0;background:#0d0d0f;color:#eee;font-family:Arial,sans-serif}
+header{padding:24px 16px;text-align:center;position:sticky;top:0;z-index:5;background:rgba(18,18,20,.96);backdrop-filter:blur(8px);border-bottom:1px solid #29292d}
+h1{margin:0 0 16px;font-size:28px}h2{margin-top:8px}
+nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}nav a{color:#fff;text-decoration:none;background:#27272b;padding:10px 16px;border-radius:10px}
+main{max-width:1100px;margin:auto;padding:20px}.section{margin-bottom:34px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.card{background:#18181b;border:1px solid #29292d;border-radius:14px;padding:12px;overflow:hidden}
+.card img{width:100%;height:190px;object-fit:cover;border-radius:10px;display:block;cursor:pointer}
+.links{display:grid;gap:10px}.links a{display:block;color:#8ec5ff;text-decoration:none;background:#18181b;border:1px solid #29292d;padding:13px;border-radius:10px;word-break:break-all}
+small{color:#999}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:20;align-items:center;justify-content:center;padding:15px}.modal img{max-width:100%;max-height:92vh;border-radius:10px}.modal.show{display:flex}
+.close{position:fixed;top:14px;right:18px;font-size:34px;color:#fff;cursor:pointer}
 </style>
 </head>
 <body>
-<header><h1>Ma Galerie</h1><nav><a href="#photos">Photos</a><a href="#liens">Liens</a><a href="#videos">Vidéos</a></nav></header>
+<header><h1>📸 Ma Galerie</h1><nav><a href="#photos">Photos</a><a href="#liens">Liens</a><a href="#videos">Vidéos</a></nav></header>
 <main>
-<section id="photos"><h2>📸 Photos</h2><div class="grid"><div class="card">Galerie photos</div></div></section>
-<section id="liens"><h2>🔗 Liens</h2><div class="card">Liens à ajouter</div></section>
-<section id="videos"><h2>🎬 Vidéos</h2><div class="card">Vidéos à ajouter</div></section>
+<section id="photos" class="section"><h2>📸 Photos</h2><div class="grid" id="gallery"></div></section>
+<section id="liens" class="section"><h2>🔗 Liens</h2><div class="links" id="links"></div></section>
+<section id="videos" class="section"><h2>🎬 Vidéos</h2><div class="card"><small>Aucune vidéo ajoutée pour le moment.</small></div></section>
 </main>
+<div class="modal" id="modal"><span class="close" onclick="closeModal()">×</span><img id="modalImg" alt=""></div>
+<script>
+const images = [
+"https://media.discordapp.net/attachments/1492561417738518629/1539042152770969660/image0.png?ex=6ac37f73&is=6ac22df3&hm=b3ca7cc88f13f16d1ef92b86d0c5a8c0b7f1f7f5d6d7e7e7e7e7e7e7e7e7e7e7e",
+];
+const links = [
+"https://beeg.com/-0532062157392966","https://beeg.com/AmberGriz","https://beeg.com/LunaEvans","https://beeg.com/-0404050513208986",
+"https://beeg.com/-0452246185949825","https://beeg.com/-0705504951138955","https://beeg.com/-0878928203670815","https://beeg.com/-0179036317461488",
+"https://beeg.com/-0402716212180770","https://beeg.com/-0112172603901703","https://beeg.com/-0666288470544599","https://beeg.com/-0528380476096781",
+"https://beeg.com/-0599400684755965","https://beeg.com/-0523159827237281","https://beeg.com/KuporovaaKrupa","https://beeg.com/PinkLoving",
+"https://urlebird.com/","https://notfans.com/","https://gofile.io/d/reygMu","https://viralxxxporn.com/","https://feet-tube.com/","https://leakgallery.com/"
+];
+document.getElementById("gallery").innerHTML=images.map((u,i)=>'<div class="card"><img src="'+u+'" alt="Photo '+(i+1)+'" onclick="openModal(this.src)" loading="lazy"></div>').join("");
+document.getElementById("links").innerHTML=links.map((u,i)=>'<a href="'+u+'" target="_blank" rel="noopener">🔗 Lien '+(i+1)+'</a>').join("");
+function openModal(src){document.getElementById("modalImg").src=src;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+document.getElementById("modal").onclick=e=>{if(e.target.id==="modal")closeModal()};
+</script>
 </body>
 </html>
